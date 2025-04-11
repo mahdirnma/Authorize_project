@@ -18,5 +18,11 @@ class ProductService
             return Product::create($product);
         });
     }
+    public function getProduct($product)
+    {
+        return app(TryService::class)(function () use ($product){
+            return $product;
+        });
+    }
 
 }
