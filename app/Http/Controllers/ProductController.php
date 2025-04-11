@@ -45,7 +45,6 @@ class ProductController extends Controller
             (new ApiResponseBuilder())->data(new ProductResource($result->data))->message('product showed successfully'):
             (new ApiResponseBuilder())->data($result->data)->message('product show unsuccessfully');
         return $apiResponse->response();
-
     }
 
     /**
@@ -53,7 +52,11 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $result=$this->service->updateProduct($request->validated(),$product);
+        $apiResponse=$result->success?
+            (new ApiResponseBuilder())->data(new ProductResource($result->data))->message('product updated successfully'):
+            (new ApiResponseBuilder())->data($result->data)->message('product updated unsuccessfully');
+        return $apiResponse->response();
     }
 
     /**
