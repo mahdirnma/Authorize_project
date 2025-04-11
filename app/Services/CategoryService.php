@@ -6,10 +6,16 @@ use App\Models\Category;
 
 class CategoryService
 {
-    public function getUsers()
+    public function getCategories()
     {
         return app(TryService::class)(function (){
             return Category::where('is_active',1)->get();
+        });
+    }
+    public function addCategory($category)
+    {
+        return app(TryService::class)(function () use ($category){
+            return Category::create($category);
         });
     }
 

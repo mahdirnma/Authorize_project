@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $result=$this->service->getUsers();
+        $result=$this->service->getCategories();
         return (new ApiResponseBuilder())->data(CategoryResource::collection($result->data))->response();
     }
 
@@ -28,6 +28,11 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        $result=$this->service->addCategory($request->validated());
+        $apiResponse=$result->success?
+            (new ApiResponseBuilder())->data(new CategoryResource($result->data))->message('category added successfully'):
+            (new ApiResponseBuilder())->data($result->data)->message('category added unsuccessfully');
+        return $apiResponse->response();
     }
 
     /**
