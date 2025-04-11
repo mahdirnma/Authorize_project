@@ -64,6 +64,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $result=$this->service->deleteProduct($product);
+        $apiResponse=$result->success?
+            (new ApiResponseBuilder())->message('product deleted successfully'):
+            (new ApiResponseBuilder())->data($result->data)->message('product deleted unsuccessfully');
+        return $apiResponse->response();
+
     }
 }

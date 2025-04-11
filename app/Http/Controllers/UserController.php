@@ -56,6 +56,5 @@ class UserController extends Controller
             (new ApiResponseBuilder())->message('user deleted successfully'):
             (new ApiResponseBuilder())->data($result->data)->message('user deleted unsuccessfully');
         return $apiResponse->response();
-
     }
 }

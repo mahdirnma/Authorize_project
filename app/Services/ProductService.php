@@ -30,5 +30,9 @@ class ProductService
             return $product;
         });
     }
-
+    public function deleteProduct(Product $product){
+        return app(TryService::class)(function () use ($product){
+            return $product->update(['is_active'=>0]);
+        });
+    }
 }
