@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('categories', CategoryController::class)->only(['update', 'destroy', 'store']);
     Route::apiResource('products', ProductController::class)->only(['update', 'destroy', 'store']);
+    Route::post('logout', LogoutController::class);
 });
 Route::apiResource('categories', CategoryController::class)->only(['index', 'show']);
 Route::apiResource('products', ProductController::class)->only(['index', 'show']);
