@@ -30,5 +30,10 @@ class CategoryService
             return $category;
         });
     }
+    public function deleteCategory($category){
+        return app(TryService::class)(function () use ($category){
+            return $category->update(['is_active'=>0]);
+        });
+    }
 
 }
