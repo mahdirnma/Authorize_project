@@ -19,6 +19,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/auth',LoginController::class)->name('login');
-Route::apiResource('users', UserController::class);
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('products', ProductController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('categories', CategoryController::class)->only(['update', 'destroy', 'store']);
+    Route::apiResource('products', ProductController::class)->only(['update', 'destroy', 'store']);
+});
+Route::apiResource('categories', CategoryController::class)->only(['index', 'show']);
+Route::apiResource('products', ProductController::class)->only(['index', 'show']);
