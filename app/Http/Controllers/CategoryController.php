@@ -22,7 +22,6 @@ class CategoryController extends Controller
         $result=$this->service->getCategories();
         return (new ApiResponseBuilder())->data(CategoryResource::collection($result->data))->response();
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -34,7 +33,6 @@ class CategoryController extends Controller
             (new ApiResponseBuilder())->data($result->data)->message('category added unsuccessfully');
         return $apiResponse->response();
     }
-
     /**
      * Display the specified resource.
      */
@@ -45,7 +43,6 @@ class CategoryController extends Controller
             (new ApiResponseBuilder())->data(new CategoryResource($result->data))->message('category showed successfully'):
             (new ApiResponseBuilder())->data($result->data)->message('category show unsuccessfully');
         return $apiResponse->response();
-
     }
 
     /**
@@ -53,12 +50,12 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $result=$this->service->updateCategory($request->validated(),$category);
+        $apiResponse=$result->success?
+            (new ApiResponseBuilder())->data(new CategoryResource($result->data))->message('category updated successfully'):
+            (new ApiResponseBuilder())->data($result->data)->message('category updated unsuccessfully');
+        return $apiResponse->response();
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category)
     {
         //
