@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Services\ApiResponseBuilder;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(public ProductService $service)
+    {
+    }
     public function index()
     {
-        //
+        $result=$this->service->getProducts();
+        return (new ApiResponseBuilder())->data(ProductResource::collection($result->data))->response();
     }
 
     /**
